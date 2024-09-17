@@ -12,3 +12,39 @@ html {
 body{
     font-size: 1.6rem;
 }
+
+.container{
+  width: min(100rem, 80%);
+  margin: 0 auto;
+}
+
+header{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 3rem 5rem;
+}
+
+main{
+  text-align: center;
+  padding: 3rem 0;
+}
+
+h1{
+  margin: 0;
+  margin-bottom: 3rem;
+}
+
+table{
+  margin: 0 auto;
+  width: 100%;
+  border-collapse: collapse;
+}
+
+table, th, td{
+  border: 0.1rem solid;
+}
+
+caption{
+  margin: 2rem 0;
+}

@@ -1,8 +1,17 @@
-const myLibrary = [];
+const myLibrary = [
+    {
+        title: "the hobbit",
+        author: "JRR Tolkien",
+        pages: "345",
+        read: false,
+    }
+];
 const title = document.querySelector("#title");
 const author = document.querySelector("#author");
 const numOfPages = document.querySelector("#numOfPages");
-
+const btn = document.querySelector(".add-book");
+const dialog = document.querySelector(".dialog-modal");
+const btnSubmit = document.querySelector(".submit");
 
 
 function Book(title, author, numOfPages, read){
@@ -12,24 +21,23 @@ function Book(title, author, numOfPages, read){
     this.read = read;
 }
 
-const btn = document.querySelector(".add-book");
-const dialog = document.querySelector(".dialog-modal");
-const btnSubmit = document.querySelector(".submit");
+function addBookToLibrary(title, author, numOfPages, read){
+    myLibrary.push(new Book(title, author, numOfPages, read));
+}
+
+function createBookCard(){
+
+}
 
 btn.addEventListener("click", () => {
     dialog.showModal();
 });
-
-function addBookToLibrary(title, author, numOfPages, read){
-    myLibrary.push(new Book(title, author, numOfPages, read));
-}
 
 btnSubmit.addEventListener("click", (e) => {
     e.preventDefault();
     const read = document.querySelector('input[name="status"]:checked').value;
     addBookToLibrary(title.value, author.value, numOfPages.value, read);
     dialog.close();
-    console.log(myLibrary);
 })
 
 
