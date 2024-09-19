@@ -19,6 +19,8 @@ function Book(title, author, numOfPages, read){
 }
 
 
+
+
 function addBookToLibrary(title, author, numOfPages, read){
     myLibrary.push(new Book(title, author, numOfPages, read));
 }
@@ -51,6 +53,15 @@ function removeBook(){
     }
 }
 
+function createReadButton(className){
+    const td = document.createElement("td");
+    const button = document.createElement("button");
+    button.textContent = "read";
+    button.classList.add(className);
+    td.appendChild(button);
+    return td;
+}
+
 
 function showBookInTable(libraryArray){
     clearTable();
@@ -58,9 +69,19 @@ function showBookInTable(libraryArray){
         const tr = document.createElement("tr");
         tbody.appendChild(tr);
         for(let value in book){
-            const td = document.createElement("td");
-            td.textContent = book[value];
-            tr.appendChild(td);
+            if (book[value] === 'read') {
+               const td = createReadButton("read");
+               tr.appendChild(td);
+            }
+            else if (book[value] === 'noRead') {
+                const td =createReadButton("no-read");
+                tr.appendChild(td);
+                book[value] = 'read';     
+            }else{
+                const td = document.createElement("td");
+                td.textContent = book[value];
+                tr.appendChild(td);
+            }
         }
         tr.appendChild(createRmBtn(index));
     });
