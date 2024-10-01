@@ -1,111 +1,65 @@
 const myLibrary = [];
-const title = document.querySelector("#title");
-const author = document.querySelector("#author");
-const numOfPages = document.querySelector("#numOfPages");
-const btn = document.querySelector(".add-book");
+const addBookBtn = document.querySelector(".add-book");
 const dialog = document.querySelector(".dialog-modal");
-const btnSubmit = document.querySelector(".submit");
+const saveChangesBtn = document.querySelector(".submit");
+const bookTitle = document.querySelector("#title");
+const bookAuthor = document.querySelector("#author");
+const bookPages = document.querySelector("#numOfPages");
+const bookStatus = document.querySelector("#read");
 const tbody = document.querySelector("tbody");
 
 
 
-
-
-function Book(title, author, numOfPages, read){
+//Book object constructor
+function Book(title, author, pages, status){
     this.title = title;
     this.author = author;
-    this.numOfPages = numOfPages;
-    this.read = read;
+    this.pages = pages;
+    this.status = status;
 }
 
 
-
-
-function addBookToLibrary(title, author, numOfPages, read){
-    myLibrary.push(new Book(title, author, numOfPages, read));
+//push new Book object to the library
+function addBookToLibrary(title, author, pages, status){
+    myLibrary.push(new Book(title, author, pages, status));
 }
 
-function clearTable(){
+
+function showBookInTable(myLibrary){
     tbody.textContent = "";
-}
-
-
-function createRmBtn(index){
-    const td = document.createElement("td");
-    const rmBtn = document.createElement("button");
-    rmBtn.textContent = "remove";
-    rmBtn.id = index;
-    rmBtn.classList.add("remove");
-    td.appendChild(rmBtn);
-    return td;
-}
-
-function removeBook(){
-    const rmBtn = document.querySelectorAll(".remove");
-    for (let i = 0; i < rmBtn.length; i++) {
-        rmBtn[i].addEventListener("click", () => {
-            const index = rmBtn[i].id;
-            myLibrary.splice(index,1);
-
-            const row = rmBtn[i].parentElement.parentElement;
-            row.remove();
-        });
-    }
-}
-
-function createReadButton(className){
-    const td = document.createElement("td");
-    const button = document.createElement("button");
-    button.textContent = "read";
-    button.classList.add(className);
-    td.appendChild(button);
-    return td;
-}
-
-
-function showBookInTable(libraryArray){
-    clearTable();
-    libraryArray.forEach( (book,index) => {
+    myLibrary.forEach((book, index)  => {
         const tr = document.createElement("tr");
         tbody.appendChild(tr);
-        for(let value in book){
-            if (book[value] === 'read') {
-               const td = createReadButton("read");
-               tr.appendChild(td);
-            }
-            else if (book[value] === 'noRead') {
-                const td =createReadButton("no-read");
-                tr.appendChild(td);
-                book[value] = 'read';     
-            }else{
-                const td = document.createElement("td");
-                td.textContent = book[value];
-                tr.appendChild(td);
-            }
+
+        for (const key in book) {
+            const td = document.createElement("td");
+            td.textContent = book[key];
+            tr.appendChild(td);
         }
-        tr.appendChild(createRmBtn(index));
     });
 }
 
-function clearModal(){
-    title.value = "";
-    author.value = "";
-    numOfPages.value = "";
+function clearForm(){
+    form = document.querySelector("form");
+    form.reset();
 }
 
 
-btn.addEventListener("click", () => {
+//when clicking add book button
+addBookBtn.addEventListener("click", () => {
     dialog.showModal();
 });
 
-btnSubmit.addEventListener("click", (e) => {
-    e.preventDefault();
-    const read = document.querySelector('input[name="status"]:checked').value;
-    addBookToLibrary(title.value, author.value, numOfPages.value, read);
-    showBookInTable(myLibrary);
-    removeBook();
-    clearModal();
-    dialog.close();
-})
-
-
+//when clicking save changes
+saveChangesBtn.addEventListener("click", (e) =>{
+    e.preventDefault(); //we prevent the default behavior of the submit button so we can get the form values
+    
+    if (bookStatus.value == "yes" || bookStatus.value == "no") {
+        addBookToLibrary(bookTitle.value, bookAuthor.value, bookPages.value, bookStatus.value);
+        showBookInTable(myLibrary);
+        clearForm();
+        dialog.close();
+    }else{
+        console.log("please enter a valid value");
+    }
+});
