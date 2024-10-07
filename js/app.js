@@ -25,7 +25,7 @@ function addBookToLibrary(title, author, pages, status){
 }
 
 //create a button to remove the book
-function removeBook(index){
+function removeBookBtn(index){
     const rmvBtn = document.createElement("button");
     const td = document.createElement("td");
     rmvBtn.textContent = "Delete";
@@ -35,6 +35,11 @@ function removeBook(index){
     return td;
 }
 
+//remove book logic
+function removeBook(index){
+    myLibrary.splice(index, 1);
+    showBookInfoInTable(myLibrary);
+}
 
 //show the book info inside the table
 function showBookInfoInTable(myLibrary){
@@ -49,7 +54,7 @@ function showBookInfoInTable(myLibrary){
             td.textContent = book[key];
             tr.appendChild(td);
         }
-        const td = removeBook(index);
+        const td = removeBookBtn(index);
         tr.appendChild(td);
     });
 }
@@ -82,6 +87,7 @@ saveChangesBtn.addEventListener("click", (e) =>{
 //using event delegation to delete the book
 tbody.addEventListener("click", (e)=> {
     if (e.target.classList.contains("delete")) {
-        console.log(e.target.id);
+        const id = Number(e.target.id);
+        removeBook(id);
     }
 });
