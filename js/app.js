@@ -24,18 +24,32 @@ function addBookToLibrary(title, author, pages, status){
     myLibrary.push(new Book(title, author, pages, status));
 }
 
+//create a button to remove the book
+function removeBook(index){
+    const rmvBtn = document.createElement("button");
+    const td = document.createElement("td");
+    rmvBtn.textContent = "Delete";
+    rmvBtn.id = index;
+    td.appendChild(rmvBtn);
+    return td;
+}
 
-function showBookInTable(myLibrary){
-    tbody.textContent = "";
+
+//show the book info inside the table
+function showBookInfoInTable(myLibrary){
+    tbody.textContent = ""; //we clear the body so we don't have duplicates
     myLibrary.forEach((book, index)  => {
         const tr = document.createElement("tr");
         tbody.appendChild(tr);
 
         for (const key in book) {
             const td = document.createElement("td");
+            console.log(key);
             td.textContent = book[key];
             tr.appendChild(td);
         }
+        const td = removeBook(index);
+        tr.appendChild(td);
     });
 }
 
@@ -56,7 +70,7 @@ saveChangesBtn.addEventListener("click", (e) =>{
     
     if (bookStatus.value == "yes" || bookStatus.value == "no") {
         addBookToLibrary(bookTitle.value, bookAuthor.value, bookPages.value, bookStatus.value);
-        showBookInTable(myLibrary);
+        showBookInfoInTable(myLibrary);
         clearForm();
         dialog.close();
     }else{
