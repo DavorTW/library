@@ -29,6 +29,7 @@ function removeBook(index){
     const rmvBtn = document.createElement("button");
     const td = document.createElement("td");
     rmvBtn.textContent = "Delete";
+    rmvBtn.classList.add("delete");
     rmvBtn.id = index;
     td.appendChild(rmvBtn);
     return td;
@@ -75,5 +76,12 @@ saveChangesBtn.addEventListener("click", (e) =>{
         dialog.close();
     }else{
         console.log("please enter a valid value");
+    }
+});
+
+//using event delegation to delete the book
+tbody.addEventListener("click", (e)=> {
+    if (e.target.classList.contains("delete")) {
+        console.log(e.target.id);
     }
 });
