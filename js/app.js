@@ -19,18 +19,19 @@ function Book(title, author, pages, status){
 }
 
 
+
 //push new Book object to the library
 function addBookToLibrary(title, author, pages, status){
     myLibrary.push(new Book(title, author, pages, status));
 }
 
 //create a button to remove the book
-function removeBookBtn(index){
+function removeBookBtn(id, textCnt, class1){
     const rmvBtn = document.createElement("button");
     const td = document.createElement("td");
-    rmvBtn.textContent = "Delete";
-    rmvBtn.classList.add("delete");
-    rmvBtn.id = index;
+    rmvBtn.textContent = textCnt;
+    rmvBtn.classList.add(class1);
+    rmvBtn.id = id;
     td.appendChild(rmvBtn);
     return td;
 }
@@ -41,6 +42,8 @@ function removeBook(index){
     showBookInfoInTable(myLibrary);
 }
 
+
+
 //show the book info inside the table
 function showBookInfoInTable(myLibrary){
     tbody.textContent = ""; //we clear the body so we don't have duplicates
@@ -49,12 +52,20 @@ function showBookInfoInTable(myLibrary){
         tbody.appendChild(tr);
 
         for (const key in book) {
-            const td = document.createElement("td");
-            console.log(key);
-            td.textContent = book[key];
-            tr.appendChild(td);
+
+            if (book[key] === "yes") {
+                const td = removeBookBtn("yes", "Read", "read");
+                tr.appendChild(td);
+            }else if (book[key] === "no") {
+                const td = removeBookBtn("no", "Read", "no-read");
+                tr.appendChild(td);
+            }else{
+                const td = document.createElement("td");
+                td.textContent = book[key];
+                tr.appendChild(td);
+            }
         }
-        const td = removeBookBtn(index);
+        const td = removeBookBtn(index, "Delete", "delete");
         tr.appendChild(td);
     });
 }
