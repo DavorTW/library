@@ -18,7 +18,9 @@ function Book(title, author, pages, status){
     this.status = status;
 }
 
-
+Book.prototype.toggleStatus = function(){
+    this.status = (this.status === "yes") ? "no" : "yes";
+}
 
 //push new Book object to the library
 function addBookToLibrary(title, author, pages, status){
@@ -42,6 +44,21 @@ function removeBook(index){
     showBookInfoInTable(myLibrary);
 }
 
+//create button to toggle status
+function toggleStatusBtn(book){
+    const statusBtn = document.createElement("button");
+    const td = document.createElement("td");
+    statusBtn.textContent = "read";
+    statusBtn.classList.add((book.status === "yes") ? "read" : "no-read");
+
+    statusBtn.addEventListener("click", () => {
+        book.toggleStatus();
+        showBookInfoInTable(myLibrary);
+    });
+
+    td.appendChild(statusBtn);
+    return td;
+}
 
 
 //show the book info inside the table
@@ -52,19 +69,16 @@ function showBookInfoInTable(myLibrary){
         tbody.appendChild(tr);
 
         for (const key in book) {
-
-            if (book[key] === "yes") {
-                const td = removeBookBtn("yes", "Read", "read");
-                tr.appendChild(td);
-            }else if (book[key] === "no") {
-                const td = removeBookBtn("no", "Read", "no-read");
-                tr.appendChild(td);
-            }else{
+            if (book.hasOwnProperty(key) && key !== "status") {
                 const td = document.createElement("td");
                 td.textContent = book[key];
                 tr.appendChild(td);
             }
         }
+       
+        const statusBtnTd = toggleStatusBtn(book);
+        tr.appendChild(statusBtnTd);
+
         const td = removeBookBtn(index, "Delete", "delete");
         tr.appendChild(td);
     });
