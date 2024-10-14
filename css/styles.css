@@ -72,12 +72,12 @@ button{
   border: none;
 }
 
-.add-book{
+.add-book, .submit{
   background-color: var(--primaryColor);
   color: #fff;
 }
 
-.add-book:hover{
+.add-book:hover, .submit:hover{
   cursor: pointer;
   background-color: var(--primaryDarker);
 }
@@ -97,4 +97,25 @@ button{
 }
 .read:hover{
   cursor: pointer;
+}
+
+dialog{
+  border-radius: 1rem;
+  border: none;
+  padding: 2rem;
+}
+
+input{
+  width: 25rem;
+  padding: 1rem 2rem;
+  border: none;
+  border-radius: 2.5rem;
+  background-color: #f2f2f2;
+}
+
+label{
+  display: block;
+  text-transform: uppercase;
+  font-size: 1.6rem;
+  margin-bottom: 1rem;
 }
