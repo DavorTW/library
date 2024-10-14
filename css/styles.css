@@ -1,3 +1,8 @@
+:root{
+  --primaryColor: #008000;
+  --primaryDarker: #004b23;
+}
+
 /* apply a natural box layout model to all elements, but allowing components to change */
 html {
   box-sizing: border-box;
@@ -11,6 +16,7 @@ html {
 
 body{
     font-size: 1.6rem;
+    font-family: "Poppins", sans-serif;
 }
 
 .container{
@@ -41,10 +47,54 @@ table{
   border-collapse: collapse;
 }
 
-table, th, td{
-  border: 0.1rem solid;
-}
 
 caption{
   margin: 2rem 0;
+}
+
+th{
+  background-color: var(--primaryColor);
+  color: #fff;
+}
+
+td, th{
+  padding: 1.2rem 0;
+  border-bottom: 0.1rem solid #ddd;
+}
+
+tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
+button{
+  padding: 1rem 3rem;
+  border-radius: 2.5rem;
+  border: none;
+}
+
+.add-book{
+  background-color: var(--primaryColor);
+  color: #fff;
+}
+
+.add-book:hover{
+  cursor: pointer;
+  background-color: var(--primaryDarker);
+}
+
+.delete, .no-read{
+  background-color: #dd0426;
+  color: #fff;
+}
+
+.delete:hover, .no-read:hover{
+  cursor: pointer;
+}
+
+.read{
+  background-color: #0077b6;
+  color: #fff;
+}
+.read:hover{
+  cursor: pointer;
 }
