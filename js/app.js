@@ -11,15 +11,17 @@ const tbody = document.querySelector("tbody");
 
 
 //Book object constructor
-function Book(title, author, pages, status){
-    this.title = title;
-    this.author = author;
-    this.pages = pages;
-    this.status = status;
-}
+class Book {
+    constructor(title, author, pages, status) {
+        this.title = title;
+        this.author = author;
+        this.pages = pages;
+        this.status = status;
+    }
 
-Book.prototype.toggleStatus = function(){
-    this.status = (this.status === "yes") ? "no" : "yes";
+    toggleStatus() {
+        this.status = (this.status === "yes") ? "no" : "yes";
+    }
 }
 
 //push new Book object to the library
